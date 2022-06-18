@@ -50,6 +50,7 @@ class Point {
                 '}';
     }
 }
+
 class Demo{
     public static void main(String[] args) {
         Point p = Point.newCartesianPoint(10,20);
