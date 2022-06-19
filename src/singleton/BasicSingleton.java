@@ -62,6 +62,9 @@ class Demo{
         BasicSingleton basicSingleton2 = readFromFile(filename);
         System.out.println("is same instance ? ==> " + (basicSingleton == basicSingleton2));
         System.out.println("is equal? ==> " + (basicSingleton.equals(basicSingleton2)));
+        basicSingleton.setValue(111);
+        System.out.println(basicSingleton.getValue());
+        System.out.println(basicSingleton2.getValue());
 
     }
 }
