@@ -39,11 +39,9 @@ class MyList extends ArrayList<ValueContainer> {
     }
     public int sum() {
         int result = 0;
-        for(int i = 0; i < this.size() ; i++){
-            ValueContainer valueContainer = get(i);
-            Iterator<Integer> iterator = valueContainer.iterator();
-            while(iterator.hasNext()){
-                result += iterator.next();
+        for (ValueContainer valueContainer : this) {
+            for (Integer integer : valueContainer) {
+                result += integer;
             }
         }
         return result;
