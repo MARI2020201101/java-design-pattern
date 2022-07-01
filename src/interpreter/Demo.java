@@ -3,6 +3,73 @@ package interpreter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+interface Element {
+    int eval();
+}
+class Integer implements Element{
+
+    private int value;
+    public Integer(int value) {
+        this.value = value;
+    }
+    @Override
+    public int eval() {
+        return value;
+    }
+}
+
+class BinaryOperation implements Element{
+
+    public enum Type{
+        ADDITION,
+        SUBTRACTION
+    }
+    public Type type;
+    public Element left,right;
+
+    @Override
+    public int eval() {
+        switch (type){
+            case ADDITION:
+                return left.eval() + right.eval();
+            case SUBTRACTION:
+                return left.eval() - right.eval();
+            default:
+                return 0;
+        }
+    }
+    static Element parse(List<Token> tokens){
+        BinaryOperation result = new BinaryOperation();
+        boolean haveLHS = false;
+        for(int i=0; i< tokens.size(); ++i){
+            Token token = tokens.get(i);
+            switch (token.type){
+                case PLUS:
+                    result.type = Type.ADDITION;
+                case MINUS:
+                    result.type = Type.SUBTRACTION;
+                case LPAREN:
+                    int j = 0;
+                    for(; j< tokens.size();++j){
+                        if(tokens.get(j).type == Token.Type.RPAREN)
+                            break;
+                        List<Sub> = tokens.stream().skip(i + 1).limit(j - i - 1).collect(Collectors.toList());
+                        parse()
+                    }
+                case RPAREN:
+                case INTEGER:
+                    Integer integer = new Integer(java.lang.Integer.parseInt(token.text));
+                    if(! haveLHS){
+                        result.left = integer;
+                        haveLHS=true;
+                    }else{
+                        result.right = integer;
+                    }break;
+                default:
+            }
+        }
+    }
+}
 
 class Token{
     public enum Type{
