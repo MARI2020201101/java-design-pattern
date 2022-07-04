@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 interface Element {
     int eval();
 }
-class Integer implements Element{
+class IntegerCUstrom implements Element{
 
     private int value;
-    public Integer(int value) {
+    public IntegerCUstrom(int value) {
         this.value = value;
     }
     @Override
@@ -53,21 +53,27 @@ class BinaryOperation implements Element{
                     for(; j< tokens.size();++j){
                         if(tokens.get(j).type == Token.Type.RPAREN)
                             break;
-                        List<Sub> = tokens.stream().skip(i + 1).limit(j - i - 1).collect(Collectors.toList());
-                        parse()
+                        List<Token> subExpression = tokens.stream().skip(i + 1).limit(j - i - 1).collect(Collectors.toList());
+                        Element element = parse(subExpression);
+                        if(!haveLHS){
+                            result.left = element;
+                            haveLHS =true;
+                        }else result.right = element;
+                        i =j;
+                        break;
                     }
                 case RPAREN:
                 case INTEGER:
-                    Integer integer = new Integer(java.lang.Integer.parseInt(token.text));
+                    IntegerCUstrom integer = new IntegerCUstrom(java.lang.Integer.parseInt(token.text));
                     if(! haveLHS){
                         result.left = integer;
                         haveLHS=true;
                     }else{
                         result.right = integer;
                     }break;
-                default:
+
             }
-        }
+        }                return result;
     }
 }
 
@@ -129,6 +135,8 @@ class Demo {
         System.out.println(tokens.stream()
                 .map(Token::toString)
                 .collect(Collectors.joining("\t")));
+
+
     }
 }
 
